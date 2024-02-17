@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import StudentLoginPage from "./pages/StudentLoginPage.tsx";
+import StudentDSD from "./pages/StudentDSD.tsx";
+import StudentSelectedDocs from "./pages/StudentSelectedDocs.tsx";
+import StudentStatus from "./pages/StudentStatus.tsx";
+import AdminLoginPage from "./pages/AdminLoginPage.tsx";
+import AdminNavBar from "./components/AdminNavBar.tsx";
+import SearchBar from "./components/SearchBar.tsx";
+import AdminDashboard from "./pages/AdminDashboard.tsx";
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <AdminDashboard/>
+    </>
   );
 }
 
