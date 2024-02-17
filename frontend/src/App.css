@@ -1,38 +1,389 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #ebebeb;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   min-height: 100vh;
+  height: auto;
+  overflow-y: auto;
+}
+
+.stundetLoginMainCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.loginContainer {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fafafa;
+}
+
+.studentLoginTitle {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.loginFormContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.studentLoginInputContainer {
+  width: 90%;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+}
+
+.studentLoginInputLabel {
+  margin-bottom: 5px;
+}
+
+.studentLoginInput {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submitBtn {
+  width: 35%;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Navbar */
+.studentNavBar {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 20px;
+  background-color: #fafafa;
+  color: #fff;
+  position: fixed;
+  width: 100%;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.25);
 }
 
-.App-link {
-  color: #61dafb;
+.studentNavBarContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.studentNavBarLinks {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.studentDSDContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* height: 100vh; */
+  background-color: #fafafa;
+  width: 55%;
+  min-height: 70vh;
+  padding: 10px 10px;
+  flex-direction: column;
+  margin: 100px 0 50px 0;
+}
+
+.studentDetailsContainer {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 30px 0;
+}
+
+.studentDocumentDetails {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+}
+
+.studentDocument {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.tableInputField {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  /* margin-bottom: 20px; */
+  height: 15px;
+  font-size: 15px;
+}
+
+.studentDocumentSubmit {
+  width: 250px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.studentDSDBtn {
+  width: 200px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deliveryContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  padding: 10px 10px;
+  flex-direction: column;
+}
+
+.deliverySelectModeOfDelivery {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.deliveryAddress {
+  display: flex;
+  justify-content: space-between;
+  align-items: space-between;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.modeofDeliverySelect,
+.deliveryAddressInputBar {
+  width: 275px;
+  padding: 10px 0 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.selectedDocumentDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 60%;
+  margin-bottom: 20px;
+}
+
+.selectedDocumentDetailsTitle {
+  font-size: 20px;
+  font-weight: bold;
+  height: 275px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.studentSelectedDocsBackBtn {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fafafa;
+  color: #007bff;
+  border: 1px solid #007bff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.studentSelectedDocsPayBtn {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.studentStatusContainer {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 100px 0 50px 0;
+}
+
+.studentStatusSubContainer {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: #fafafa;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border-left: 3px solid #007bff;
+}
+
+.pandingStatusColorSubContainer {
+  border-left: 3px solid #E77C40;
+}
+
+.paddingStatusColor {
+  color: #E77C40;
+}
+
+.completedStatusColorSubContainer {
+  border-left: 3px solid #43a943;
+}
+
+.completedStatusColor {
+  color: #43a943;
+}
+
+.adminNavigationOption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.searchBarContainer {
+  margin-top: 80px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.searchInput {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #FAFAFA;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.searchIcon {
+  position: absolute;
+  right: 10px;
+  z-index: 50;
+}
+
+.adminDashboardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  padding: 20px 20px;
+  background-color: #fafafa;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 120px;
+}
+
+.adminDashboardMainContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 20px 0;
+  min-height: 100vh;
+}
+
+.adminDocsBtn {
+  width: 100px;
+  padding: 5px;
+  border: none;
+  border-radius: 50px;
+  background-color: #555;
+  color: #fff;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.adminDocsBtn::selection {
+  border: none;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+th {
+  text-align: left; /* Or 'center' or 'right' based on your preference */
+}
+td {
+  text-align: left;
+}
+
+
+/* Consistent spacing */
+th, td {
+  padding: 0; /* Or inherit padding from parent */
+  /* margin-top: 10px; */
+}
+
+/* Header background color */
+thead {
+  /* background-color: gray;  */
+  margin: 10px 0;
+}
+
+tbody {
+  margin: 10px 0;
 }
