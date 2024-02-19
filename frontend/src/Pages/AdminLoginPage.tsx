@@ -23,6 +23,18 @@ const AdminLoginPage = () => {
                 />
               </div>
               <div className="studentLoginInputContainer">
+                <label htmlFor="adminName" className="studentLoginInputLabel">
+                  Admin name
+                </label>
+                <input
+                  type="text"
+                  className="studentLoginInput"
+                  id="adminName"
+                  aria-describedby="emailHelp"
+                  placeholder="Enter admin name"
+                />
+              </div>
+              <div className="studentLoginInputContainer">
                 <label htmlFor="password" className="studentLoginInputLabel">
                   Password
                 </label>
