@@ -11,6 +11,18 @@ const StudentLoginPage = () => {
             <h1 className="studentLoginTitle">Student Login</h1>
             <form className="loginFormContainer">
               <div className="studentLoginInputContainer">
+                <label htmlFor="studentId" className="studentLoginInputLabel">
+                  Student ID
+                </label>
+                <input
+                  type="number"
+                  className="studentLoginInput"
+                  id="studentId"
+                  aria-describedby="studentId"
+                  placeholder="Enter Student Id"
+                />
+              </div>
+              <div className="studentLoginInputContainer">
                 <label htmlFor="email" className="studentLoginInputLabel">
                   Email address
                 </label>
@@ -24,7 +36,7 @@ const StudentLoginPage = () => {
               </div>
               <div className="studentLoginInputContainer">
                 <label htmlFor="name" className="studentLoginInputLabel">
-                  Email address
+                  Name
                 </label>
                 <input
                   type="text"
