@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const StudentLoginPage = () => {
   return (
@@ -45,9 +46,11 @@ const StudentLoginPage = () => {
                   placeholder="Enter your contact number"
                 />
               </div>
-              <button type="submit" className="submitBtn btn btn-primary">
-                Submit
-              </button>
+              <Link to="/student/dsd">
+                <button type="submit" className="sudentSubmitBtn btn btn-primary">
+                  Submit
+                </button>
+              </Link>
             </form>
           </div>
         </div>

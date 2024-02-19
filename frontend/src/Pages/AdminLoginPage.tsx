@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const AdminLoginPage = () => {
   return (
@@ -32,9 +33,11 @@ const AdminLoginPage = () => {
                   placeholder="Password"
                 />
               </div>
-              <button type="submit" className="submitBtn btn btn-primary">
-                Submit
-              </button>
+              <Link to="/admin/dashboard">
+                <button type="submit" className="adminSubmitBtn btn btn-primary">
+                  Submit
+                </button>
+              </Link>
             </form>
           </div>
         </div>
