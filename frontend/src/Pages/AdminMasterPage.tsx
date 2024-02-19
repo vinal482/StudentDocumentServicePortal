@@ -1,11 +1,9 @@
 import React from "react";
-import StudentNavBar from "../components/StudentNavBar.tsx";
-import "../App.css";
-import Table from "../components/Table.tsx";
+import AdminNavBar from "../components/AdminNavBar.tsx";
+import MasterTable from "../components/MasterTable.tsx";
 import { Link } from "react-router-dom";
 
-// student Document Service Dashboard
-const StudentDSD = () => {
+const AdminMasterPage = () => {
   const [checked, setChecked] = React.useState(false);
   function handleChange(e) {
     setChecked(e.target.checked);
@@ -27,10 +25,9 @@ const StudentDSD = () => {
     { "Document name": "Duplicate Degree Certificate", Cost: "300 INR" },
     { "Document name": "Other Miscellaneous Certificate", Cost: "50 INR" },
   ];
-
   return (
     <>
-      <StudentNavBar />
+      <AdminNavBar />
       <div className="container">
         <div className="studentDSDContainer">
           <div className="studentDetailsContainer">
@@ -39,11 +36,11 @@ const StudentDSD = () => {
           </div>
           <div className="studentDocumentDetails">
             <div className="studentDocument">
-              <Table data={data} />
+              < MasterTable data={data} />
             </div>
           </div>
           <div className="studentDocumentSubmit">
-            <Link to="/student/selected-docs">
+            <Link to="/admin/dashboard">
               <button type="submit" className="studentDSDBtn">
                 Next
               </button>
@@ -55,4 +52,4 @@ const StudentDSD = () => {
   );
 };
 
-export default StudentDSD;
+export default AdminMasterPage;

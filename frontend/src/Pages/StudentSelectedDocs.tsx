@@ -1,6 +1,7 @@
 import React from "react";
 import StudentNavBar from "../components/StudentNavBar.tsx";
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const StudentSelectedDocs = () => {
   return (
@@ -37,12 +38,16 @@ const StudentSelectedDocs = () => {
             </div>
           </div>
           <div className="studentDocumentSubmit">
-            <button type="submit" className="studentSelectedDocsBackBtn">
-              Back
-            </button>
-            <button type="submit" className="studentSelectedDocsPayBtn">
-              Pay
-            </button>
+            <Link to="/student/dsd">
+              <button type="submit" className="studentSelectedDocsBackBtn">
+                Back
+              </button>
+            </Link>
+            <Link>
+              <button type="submit" className="studentSelectedDocsPayBtn">
+                Pay
+              </button>
+            </Link>
           </div>
         </div>
       </div>

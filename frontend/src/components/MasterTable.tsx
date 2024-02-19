@@ -24,11 +24,10 @@ const Table = ({ data }) => {
     <table style={{ width: "100%" }}>
       <thead>
         <tr>
-          <th>Select<hr style={{margin: "5px 0 10px 0"}} /></th>
+          <th>Order<hr style={{margin: "5px 0 10px 0"}} /></th>
           {columnNames.map((heading) => (
             <th key={heading}>{heading}<hr style={{margin: "5px 0 10px 0"}} /></th>
           ))}
-          <th>No. of copies<hr style={{margin: "5px 0 10px 0"}} /></th>
         </tr>
       </thead>
       <tbody>
@@ -36,24 +35,26 @@ const Table = ({ data }) => {
           <tr key={row.uniqueId || index} >
             <td>
               <input
-                type="checkbox" style={{marginBottom: '10px'}}
+                type="text" className='tableInputField' style={{marginBottom: '10px', width: '100px'}} defaultValue={`${index + 1}`}
                 // checked={selectedItems[row.uniqueId || index]} // Use uniqueId if applicable
                 // onChange={() => handleCheckboxChange(row.uniqueId || index, !selectedItems[row.uniqueId || index])}
               />
             </td>
             {columnNames.map((heading) => (
-              <td key={`${heading}-${index}`}><p style={{marginBottom: '10px'}}>{row[heading]}</p></td>
+              <td key={`${heading}-${index}`}>
+                <input type="text" defaultValue={`${row[heading]}`} className='tableInputField' style={{marginBottom: '10px', width: 'max-content'}} />
+              </td>
             ))}
-            <td>
+            {/* <td>
               <input
               className='tableInputField'
                 type="text"
                 placeholder="0"
-                style={{ width: '1.5rem', marginBottom: '10px'}}
+                style={{ width: '1.5rem'}}
                 // value={selectedItems[row.uniqueId || index] || ""} // Use uniqueId if applicable
                 // onChange={(e) => handleInputChange(row.uniqueId || index, e.target.value)}
               />
-            </td>
+            </td> */}
           </tr>
         ))}
       </tbody>
