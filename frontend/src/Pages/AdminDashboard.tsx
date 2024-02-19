@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar.tsx";
 const AdminDashboard = () => {
   const data = [
     {
-      "Tracking ID": "0123456789",
+      "Request ID": "0123456789",
       Time: "20:03 12/02/24",
       "Student ID": "202001062",
       Cost: "50 INR",
@@ -15,7 +15,7 @@ const AdminDashboard = () => {
       "Transaction ID": "1234567890",
     },
     {
-      "Tracking ID": "0123456789",
+      "Request ID": "0123456789",
       Time: "20:03 12/02/24",
       "Student ID": "202001140",
       Cost: "50 INR",

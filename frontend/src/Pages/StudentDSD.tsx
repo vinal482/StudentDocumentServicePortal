@@ -3,6 +3,7 @@ import StudentNavBar from "../components/StudentNavBar.tsx";
 import "../App.css";
 import Table from "../components/Table.tsx";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 
 // student Document Service Dashboard
 const StudentDSD = () => {

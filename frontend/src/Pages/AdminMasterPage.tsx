@@ -2,6 +2,7 @@ import React from "react";
 import AdminNavBar from "../components/AdminNavBar.tsx";
 import MasterTable from "../components/MasterTable.tsx";
 import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
 
 const AdminMasterPage = () => {
   const [checked, setChecked] = React.useState(false);
@@ -30,14 +31,20 @@ const AdminMasterPage = () => {
       <AdminNavBar />
       <div className="container">
         <div className="studentDSDContainer">
-          <div className="studentDetailsContainer">
-            <h4>Student name: Vinal Boricha</h4>
-            <h4>Student ID: 202001062</h4>
-          </div>
           <div className="studentDocumentDetails">
             <div className="studentDocument">
-              < MasterTable data={data} />
+              <MasterTable data={data} />
             </div>
+          </div>
+          <div className="studentDocumentSubmit">
+            <button
+              type="submit"
+              className="studentDSDBtn"
+              style={{ backgroundColor: "#5d5d5d" }}
+            >
+              <FaPlus />
+              <p style={{ marginLeft: "10px" }}>Add a new column</p>
+            </button>
           </div>
           <div className="studentDocumentSubmit">
             <Link to="/admin/dashboard">
