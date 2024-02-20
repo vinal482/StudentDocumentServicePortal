@@ -30,10 +30,48 @@ const AdminMasterPage = () => {
     <>
       <AdminNavBar />
       <div className="container">
-        <div className="studentDSDContainer">
+        <div className="adminMasterContainer">
           <div className="studentDocumentDetails">
-            <div className="studentDocument">
-              <MasterTable data={data} />
+            <div className="studentDocument" style={{flexDirection: 'column'}}>
+              <h4 style={{marginBottom: "10px"}}>Select Document:</h4>
+              {/* <MasterTable data={data} /> */}
+              <div style={{marginBottom: '20px'}}>
+                <select className="masterPageSelectInput">
+                  <option value="Select">Select</option>
+                  <option value="Bonafide Student Certificate">
+                    Bonafide Student Certificate
+                  </option>
+                  <option value="Combined Grade Report">
+                    Combined Grade Report
+                  </option>
+                  <option value="Duplicate Transcript">
+                    Duplicate Transcript
+                  </option>
+                  <option value="Document In Sealed DA-IICT envelope">
+                    Document In Sealed DA-IICT envelope
+                  </option>
+                  <option value="Migration Certificate">
+                    Migration Certificate
+                  </option>
+                  <option value="Expected date of result certificate">
+                    Expected date of result certificate
+                  </option>
+                  <option value="Medium of instruction certificate">
+                    Medium of instruction certificate
+                  </option>
+                  <option value="Duplicate Provisional certificate">
+                    Duplicate Provisional certificate
+                  </option>
+                  <option value="Duplicate Degree Certificate">
+                    Duplicate Degree Certificate
+                  </option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Cost"
+                  className="masterPageInput"
+                />
+              </div>
             </div>
           </div>
           <div className="studentDocumentSubmit">
@@ -43,13 +81,13 @@ const AdminMasterPage = () => {
               style={{ backgroundColor: "#5d5d5d" }}
             >
               <FaPlus />
-              <p style={{ marginLeft: "10px" }}>Add a new column</p>
+              <p style={{ marginLeft: "10px" }}>Add a new document</p>
             </button>
           </div>
           <div className="studentDocumentSubmit">
             <Link to="/admin/dashboard">
               <button type="submit" className="studentDSDBtn">
-                Next
+                Submit
               </button>
             </Link>
           </div>
