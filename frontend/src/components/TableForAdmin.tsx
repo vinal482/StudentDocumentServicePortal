@@ -28,7 +28,7 @@ const Table = ({ data }) => {
             <th key={heading}>{heading}<hr style={{margin: "5px 0 10px 0"}} /></th>
           ))}
           <th>Documents<hr style={{margin: "5px 0 10px 0"}} /></th>
-          <th>Po detailsst<hr style={{margin: "5px 0 10px 0"}} /></th>
+          <th>Post details<hr style={{margin: "5px 0 10px 0"}} /></th>
         </tr>
       </thead>
       <tbody>
