@@ -4,6 +4,12 @@ import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
 const StudentNavBar = () => {
+  const logoutHandler = async () => {
+    localStorage.removeItem("studentId");
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    window.location.href = "/student/login";
+  };
   return (
     <div className="studentNavBar">
       <div className="studentNavBarContainer">
@@ -29,11 +35,14 @@ const StudentNavBar = () => {
             </Link>
           </>
           <>
-            <Link
-              to="/student/login"
+            <button
+            onClick={logoutHandler}
               style={{
                 textDecoration: "none",
                 color: "red",
+                background: "none",
+                cursor: "pointer",
+                border: "none",
                 display: "flex",
                 alignItems: "center",
               }}
@@ -42,7 +51,7 @@ const StudentNavBar = () => {
                 style={{ fill: "red", transform: "rotate(180deg)" }}
               />
               <p style={{ marginLeft: "3px" }}>LOGOUT</p>
-            </Link>
+            </button>
           </>
         </div>
       </div>
