@@ -168,7 +168,7 @@ body {
 .studentDocumentDetails {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 95%;
   justify-content: center;
   align-items: center;
 }

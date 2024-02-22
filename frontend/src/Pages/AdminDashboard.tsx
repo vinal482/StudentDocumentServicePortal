@@ -3,6 +3,39 @@ import TableForAdmin from "../components/TableForAdmin.tsx";
 import AdminNavBar from "../components/AdminNavBar.tsx";
 import SearchBar from "../components/SearchBar.tsx";
 const AdminDashboard = () => {
+
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+  const [email, setEmail] = React.useState<string>("");
+  const [adminName, setAdminName] = React.useState<string>("");
+  const [adminId, setAdminId] = React.useState<string>("");
+
+  const retriveAdminData = async () => {
+    try {
+      setIsLoading(true);
+      const adminId = await localStorage.getItem("adminId");
+      const email = await localStorage.getItem("email");
+      const adminName = await localStorage.getItem("adminName");
+
+      if (adminId === null || email === null || adminName === null) {
+        localStorage.clear();
+        window.location.href = "/admin/login";
+      }
+
+      setAdminId(adminId);
+      setEmail(email);
+      setAdminName(adminName);
+    } catch (error) {
+      console.error("Error retrieving admin data:", error);
+      alert("There was an error retrieving admin data. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  React.useEffect(() => {
+    retriveAdminData();
+  }, []);
+
   const data = [
     {
       "Request ID": "0123456789",
