@@ -77,7 +77,7 @@ const StudentLoginPage = () => {
                       Student ID
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       className="studentLoginInput"
                       id="studentId"
                       aria-describedby="studentId"
