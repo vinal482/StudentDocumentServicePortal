@@ -45,16 +45,6 @@ const Table = ({ data }) => {
                 <input type="text" defaultValue={`${row[heading]}`} className='tableInputField' style={{marginBottom: '10px', width: 'max-content'}} />
               </td>
             ))}
-            {/* <td>
-              <input
-              className='tableInputField'
-                type="text"
-                placeholder="0"
-                style={{ width: '1.5rem'}}
-                // value={selectedItems[row.uniqueId || index] || ""} // Use uniqueId if applicable
-                // onChange={(e) => handleInputChange(row.uniqueId || index, e.target.value)}
-              />
-            </td> */}
           </tr>
         ))}
       </tbody>

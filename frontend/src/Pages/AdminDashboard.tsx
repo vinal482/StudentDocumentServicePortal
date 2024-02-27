@@ -1,13 +1,15 @@
 import React from "react";
 import TableForAdmin from "../components/TableForAdmin.tsx";
 import AdminNavBar from "../components/AdminNavBar.tsx";
-import SearchBar from "../components/SearchBar.tsx";
+// import SearchBar from "../components/SearchBar.tsx";
+import axios from "axios";
 const AdminDashboard = () => {
-
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const [email, setEmail] = React.useState<string>("");
   const [adminName, setAdminName] = React.useState<string>("");
   const [adminId, setAdminId] = React.useState<string>("");
+  const [data, setData] = React.useState([]); // Replace with actual data
+  const [search, setSearch] = React.useState("");
 
   const retriveAdminData = async () => {
     try {
@@ -24,45 +26,59 @@ const AdminDashboard = () => {
       setAdminId(adminId);
       setEmail(email);
       setAdminName(adminName);
+
+      const response1 = await axios.get(
+        `http://localhost:8080/request/getAll`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const Data = await response1.data;
+      await setData(Data);
+      console.log("Data:", Data);
+      
     } catch (error) {
       console.error("Error retrieving admin data:", error);
-      alert("There was an error retrieving admin data. Please try again later.");
+      alert(
+        "There was an error retrieving admin data. Please try again later."
+      );
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   React.useEffect(() => {
     retriveAdminData();
   }, []);
 
-  const data = [
-    {
-      "Request ID": "0123456789",
-      Time: "20:03 12/02/24",
-      "Student ID": "202001062",
-      Cost: "50 INR",
-      Status: "Collected",
-      Delivery: "On campus",
-      "Contact details": "9876543210",
-      "Transaction ID": "1234567890",
-    },
-    {
-      "Request ID": "0123456789",
-      Time: "20:03 12/02/24",
-      "Student ID": "202001140",
-      Cost: "50 INR",
-      Status: "Delivered",
-      Delivery: "Inside India",
-      "Contact details": "9876543210",
-      "Transaction ID": "1234567890",
-    },
-  ];
+
+  const handleSearchSubmit = () => {
+    console.log("Search:", search);
+  };
+
+  function Search(formData) {
+    const query = formData.get("query");
+    alert(`You searched for '${query}'`);
+  }
+
+  
 
   return (
     <>
       <AdminNavBar />
-      <SearchBar />
+      <div className="searchBarContainer">
+      <form action={Search} className="searchInputForm">
+        <input
+          className="searchInput"
+          type="text"
+          placeholder="Search"
+          name="query"
+          onChange={(e) => setSearch(e)}
+        />
+      </form>
+    </div>
       <div className="container">
         <div className="adminDashboardMainContainer">
           <div className="adminDashboardContainer">
