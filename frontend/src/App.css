@@ -128,6 +128,19 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
 }
 
+.nav-links {
+  margin-right: 20px;
+  color: #5d5d5d;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+}
+
+.active-nav-link {
+  color: #007bff;
+}
+
 .masterPageSelectInput {
   padding: 10px;
   border: 1px solid #ccc;
@@ -141,6 +154,12 @@ input[type=number]::-webkit-outer-spin-button {
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 20px;
+}
+
+.costLogTable {
+  width: 95%;
+  border-collapse: collapse;
+  margin: 10px 0;
 }
 
 .studentDSDContainer {
@@ -367,10 +386,13 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .adminNavigationOption {
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: #fff;
+  padding: 20px;
 }
 
 .searchBarContainer {
@@ -383,12 +405,28 @@ input[type=number]::-webkit-outer-spin-button {
   margin-bottom: 20px;
 }
 
+.searchInputForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
 .searchInput {
   width: 50%;
   padding: 10px;
   border: 1px solid #fafafa;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
+
+.searchInput::selection {
+  border: none;
+}
+
+.searchInput:focus {
+  outline: none;
 }
 
 .searchIcon {
@@ -524,4 +562,12 @@ tbody {
   background-color: #e77c40;
   color: #fff;
   cursor: pointer;
+}
+
+.close {
+  width: 100%;
+  font-size: 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: flex-end;
 }
