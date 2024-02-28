@@ -349,10 +349,11 @@ input[type=number]::-webkit-outer-spin-button {
 .studentStatusContainer {
   display: flex;
   flex-direction: column;
-  width: 60vw;
+  width: 100%;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   padding: 100px 0 50px 0;
+  font-size: 15px;
 }
 
 .studentStatusSubContainer {
@@ -570,4 +571,96 @@ tbody {
   cursor: pointer;
   display: flex;
   justify-content: flex-end;
+}
+
+.postDetailsBelowStatusUpdate {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.postDetailsInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.postedSubmitBtn {
+  width: 320px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.labelForPostDetailsUpdatation {
+  margin-bottom: 5px;
+}
+
+.studentDashboardBtn {
+  padding: 2px 15px;
+  border: none;
+  border-radius: 50px;
+  background-color: #676768;
+  color: #fff;
+  cursor: pointer;
+}
+
+.studentDashboardTable {
+  width: 95%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.studentDashboardTableContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  padding: 20px 20px;
+  background-color: #fafafa;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+}
+
+.modalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+.docNameInputBar, .docCostInputBar {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+.adminMasterAddDocBtn {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
 }
