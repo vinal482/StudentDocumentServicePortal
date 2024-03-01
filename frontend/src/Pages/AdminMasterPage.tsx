@@ -42,7 +42,7 @@ const AdminMasterPage = () => {
     try {
       const adminName = await localStorage.getItem("adminName");
       setAdminName(adminName);
-      const response = await axios.get(`http://localhost:8080/document/getall`);
+      const response = await axios.get(`http://10.100.56.153:8080/document/getall`);
       const data = await response.data;
       console.log("Data:", data);
       var temp = new Object();
@@ -73,7 +73,7 @@ const AdminMasterPage = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/document/update`,
+        `http://10.100.56.153:8080/document/update`,
         {
           documentId: selectedDoc,
           documentCost: newCost,
@@ -84,7 +84,7 @@ const AdminMasterPage = () => {
       // console.log("Data:", data);
       alert("Document updated successfully");
       const response1 = await axios.post(
-        `http://localhost:8080/documentCostLog/add`,
+        `http://10.100.56.153:8080/documentCostLog/add`,
         {
           documentId: selectedDoc,
           documentNewCost: newCost,
@@ -105,7 +105,7 @@ const AdminMasterPage = () => {
   const handleSelectedDoc = async (docId) => {
     setSelectedDoc(docId);
     const response = await axios.get(
-      `http://localhost:8080/documentCostLog/get?documentId=${docId}`
+      `http://10.100.56.153:8080/documentCostLog/get?documentId=${docId}`
     );
     const data = response.data;
     // console.log("Data:", data);
@@ -126,7 +126,7 @@ const AdminMasterPage = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.get(`http://localhost:8080/document/getall`);
+      const response = await axios.get(`http://10.100.56.153:8080/document/getall`);
       // console.log("Data:", response.data);
       await setDocData(response.data);
     } catch (error) {
@@ -144,7 +144,7 @@ const AdminMasterPage = () => {
       return;
     }
     try {
-      const response = await axios.post(`http://localhost:8080/document/add`, {
+      const response = await axios.post(`http://10.100.56.153:8080/document/add`, {
         documentName: newDocName,
         documentCost: newDocCost,
       });
