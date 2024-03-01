@@ -13,6 +13,9 @@ const StudentStatus = () => {
   const [postalDetails, setPostalDetails] = React.useState([]); // Replace with actual data
   const [forDocs, setForDocs] = React.useState<boolean>(false); // Replace with actual data
   const [forPostal, setForPostal] = React.useState<boolean>(false); // Replace with actual data
+  const [forPayment, setForPayment] = React.useState<boolean>(false); // Replace with actual data
+  const [transactionId, setTransactionId] = React.useState(""); // Replace with actual data
+  const [amountPaid, setAmountPaid] = React.useState(""); // Replace with actual data
 
   const setModalVisibility = (value) => {
     // setModalVisibility(value);
@@ -56,6 +59,7 @@ const StudentStatus = () => {
     setForDocs(true);
     setForPostal(false);
     setIsLoading(true);
+    setForPayment(false);
     try {
       const documentResponse = await axios.get(
         `http://localhost:8080/requestedDocuments/get?requestId=${requestId}`
@@ -87,6 +91,7 @@ const StudentStatus = () => {
     setIsLoading(true);
     setForDocs(false);
     setForPostal(true);
+    setForPayment(false);
     try {
       const response = await axios.get(
         `http://localhost:8080/post/get?requestId=${requestId}`
@@ -105,6 +110,26 @@ const StudentStatus = () => {
       setIsLoading(false);
     }
     setModalVisibility(true);
+  };
+
+  const handleDisplayPayment = async (requestId, transactionId, amountPaid) => {
+    setIsLoading(true);
+    setForDocs(false);
+    setForPostal(false);
+    setForPayment(false);
+    try {
+      await setTransactionId(transactionId);
+      await setAmountPaid(amountPaid);
+    } catch (error) {
+      console.error("Error fetching payment details:", error);
+      alert(
+        "There was an error trying to fetch payment details. Please try again later."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+    setModalVisibility(true);
+    setForPayment(true);
   };
 
   React.useEffect(() => {
@@ -145,12 +170,6 @@ const StudentStatus = () => {
                         />
                       </th>
                       <th>
-                        Amount Paid
-                        <hr
-                          style={{ marginBottom: "10px", marginTop: "5px" }}
-                        />
-                      </th>
-                      <th>
                         Mode of Delivery
                         <hr
                           style={{ marginBottom: "10px", marginTop: "5px" }}
@@ -163,13 +182,13 @@ const StudentStatus = () => {
                         />
                       </th>
                       <th>
-                        Transaction ID
+                        Document Status
                         <hr
                           style={{ marginBottom: "10px", marginTop: "5px" }}
                         />
                       </th>
                       <th>
-                        Status
+                        Payment details
                         <hr
                           style={{ marginBottom: "10px", marginTop: "5px" }}
                         />
@@ -200,10 +219,6 @@ const StudentStatus = () => {
                             <div style={{ marginBottom: "10px" }} />
                           </td>
                           <td>
-                            {req.amountPaid}
-                            <div style={{ marginBottom: "10px" }} />
-                          </td>
-                          <td>
                             {req.deliveryMod}
                             <div style={{ marginBottom: "10px" }} />
                           </td>
@@ -212,12 +227,34 @@ const StudentStatus = () => {
                             <div style={{ marginBottom: "10px" }} />
                           </td>
                           <td>
-                            {req.transactionId}
+                            {req.status === "Pending" ? (
+                              <p style={{ color: "#E77C40" }}>{req.status}</p>
+                            ) : null}
+                            {req.status === "Issued" ? (
+                              <p style={{ color: "#1E63BB" }}>{req.status}</p>
+                            ) : null}
+                            {req.status === "Posted" ||
+                            req.status === "Collected" ? (
+                              <p style={{ color: "#197F2F" }}>{req.status}</p>
+                            ) : null}
+                            {req.status === "Rejected" ? (
+                              <p style={{ color: "red" }}>{req.status}</p>
+                            ) : null}
                             <div style={{ marginBottom: "10px" }} />
                           </td>
                           <td>
-                            {req.status}
-                            <div style={{ marginBottom: "10px" }} />
+                            <button
+                              className="studentDashboardBtn"
+                              onClick={() => {
+                                handleDisplayPayment(
+                                  req.requestId,
+                                  req.transactionId,
+                                  req.amountPaid
+                                );
+                              }}
+                            >
+                              Payment details
+                            </button>
                           </td>
                           <td>
                             <button
@@ -262,8 +299,9 @@ const StudentStatus = () => {
                 >
                   <MdClose />
                 </span>
-                {forDocs ? <h3>Document Details</h3> : null}
+                {forDocs ? <h3>Documents appilied for: </h3> : null}
                 {forPostal ? <h3>Postal Details</h3> : null}
+                {forPayment ? <h3>Payment Details</h3> : null}
                 {isLoading ? (
                   <TailSpin // Type of spinner
                     height="40"
@@ -318,14 +356,47 @@ const StudentStatus = () => {
                 ) : null}
                 {!isLoading && forPostal ? (
                   <>
+                    <hr style={{ marginBottom: "10px", background: "black" }} />
                     <div
                       className="postDetailsBelowStatusUpdate"
                       id="postDetailsBelowStatusUpdate"
                     >
-                      <p><b>Tracking ID:</b> {postalDetails.trackingId}</p>
-                      <p><b>Address:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {postalDetails.address}</p>
-                      <p><b>Agency name:</b> {postalDetails.agencyName}</p>
-                      <p><b>Posted date:</b> {postalDetails.postTime}</p>
+                      <p>
+                        <b>Tracking ID:</b> {postalDetails.trackingId}
+                      </p>
+                      <p>
+                        <b>Address:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{" "}
+                        {postalDetails.address}
+                      </p>
+                      <p>
+                        <b>Agency name:</b> {postalDetails.agencyName}
+                      </p>
+                      <p>
+                        <b>Posted date:</b> {postalDetails.postTime}
+                      </p>
+                    </div>
+                  </>
+                ) : null}
+                {!isLoading && forPayment ? (
+                  <>
+                    <div
+                      className="postDetailsBelowStatusUpdate"
+                      id="postDetailsBelowStatusUpdate"
+                    >
+                      <hr
+                        style={{
+                          marginBottom: "10px",
+                          background: "black",
+                          width: "100%",
+                        }}
+                      />
+                      <p>
+                        <b>Transaction ID:</b> {transactionId}
+                      </p>
+                      <p>
+                        <b>Charges:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        &nbsp; {amountPaid} INR
+                      </p>
                     </div>
                   </>
                 ) : null}

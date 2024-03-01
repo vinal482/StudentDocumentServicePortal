@@ -664,3 +664,32 @@ tbody {
   cursor: pointer;
   margin-left: 10px;
 }
+
+.updateStatusInput {
+  width: 300px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+#updateStatusInputCont {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.adminAddressEditBtn {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 50px;
+  background-color: #4b4b4b;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}

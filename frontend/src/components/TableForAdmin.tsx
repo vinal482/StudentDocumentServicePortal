@@ -21,9 +21,21 @@ const Table = ({ data }) => {
   const [trackingId, setTrackingId] = useState("");
   const [agencyName, setAgencyName] = useState("");
   const [postalDate, setPostalDate] = useState("");
+  const [forAllRequests, setForAllRequests] = useState(true);
+  const [rejectedReasonVisibility, setRejectedReasonVisibility] =
+    useState(false);
+  const [postAddress, setPostAddress] = useState("");
 
   const retriveAdminData = async () => {
-    await setData(data);
+    setIsLoading(true);
+    try {
+      await setData(data);
+    } catch (error) {
+      console.error("Error retrieving admin data:", error);
+      alert("Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   React.useEffect(() => {
@@ -38,8 +50,9 @@ const Table = ({ data }) => {
 
   const handleDisplayDocs = async (requestId, studentId) => {
     setModalVisibility(true);
-    setIsLoading(true);
+    setIsLoading(false);
     setForDocument(true);
+    setForStatus(false);
     await setStudentId(studentId);
     try {
       const documentResponse = await axios.get(
@@ -48,7 +61,7 @@ const Table = ({ data }) => {
 
       const documentData = await documentResponse.data;
 
-      for(let i = 0; i < documentData.length; i++) {
+      for (let i = 0; i < documentData.length; i++) {
         const response = await axios.get(
           `http://localhost:8080/document/get?documentId=${documentData[i].documentId}`
         );
@@ -65,6 +78,15 @@ const Table = ({ data }) => {
       );
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleEnableAddressEdit = () => {
+    const addressInput = document.getElementById("address");
+    if (addressInput.disabled === false) {
+      addressInput.disabled = true;
+    } else {
+      addressInput.disabled = false;
     }
   };
 
@@ -89,6 +111,7 @@ const Table = ({ data }) => {
       setTrackingId(data.trackingId);
       setAgencyName(data.agencyName);
       setPostalDate(data.postTime);
+      setPostAddress(data.address);
       // setDocumentData(data);
       setPostData(data);
     } catch (error) {
@@ -107,13 +130,23 @@ const Table = ({ data }) => {
     deliveryMode,
     studentId
   ) => {
+    console.log("Status:", Status);
+    console.log("Request ID:", requestId);
+    console.log("Delivery Mode:", deliveryMode);
+    console.log("Student ID:", studentId);
+    if (Status === "Rejected") {
+      setRejectedReasonVisibility(true);
+    } else {
+      setRejectedReasonVisibility(false);
+    }
     setForDocument(false);
     setModalVisibility(true);
     setForStatus(true);
+    await setStudentId(studentId);
     await setStatusRequestId(requestId);
     await setModeOfDelivery(deliveryMode);
     console.log("Status:", requestId);
-    setStatus(Status);
+    await setStatus(Status);
     document.getElementById("statusSel").value = Status;
     try {
       const response = await axios.get(
@@ -131,8 +164,24 @@ const Table = ({ data }) => {
     }
   };
 
+  // const setRejectedReasonVisibility = (value) => {
+  //   const rejectedReasonInput = document.getElementById(
+  //     "updateStatusInputCont"
+  //   );
+  //   if (value) {
+  //     rejectedReasonInput.style.display = "flex";
+  //   } else {
+  //     rejectedReasonInput.style.display = "none";
+  //   }
+  // };
+
   const handleSelectChange = async (e) => {
     console.log("Selected:", e.target.value);
+    if (e.target.value === "Rejected") {
+      await setRejectedReasonVisibility(true);
+    } else {
+      await setRejectedReasonVisibility(false);
+    }
     setSelectedStatus(e.target.value);
   };
 
@@ -204,6 +253,7 @@ const Table = ({ data }) => {
         setIsLoading(false);
       }
     } else if (id === "pendingRequests") {
+      setForAllRequests(false);
       pendingRequests.style.color = "#007bff";
       try {
         setIsLoading(true);
@@ -226,6 +276,7 @@ const Table = ({ data }) => {
         setIsLoading(false);
       }
     } else if (id === "issuedRequests") {
+      setForAllRequests(false);
       issuedRequests.style.color = "#007bff";
       try {
         setIsLoading(true);
@@ -248,6 +299,7 @@ const Table = ({ data }) => {
         setIsLoading(false);
       }
     } else if (id === "completedRequests") {
+      setForAllRequests(false);
       completedRequests.style.color = "#007bff";
       try {
         setIsLoading(true);
@@ -309,19 +361,23 @@ const Table = ({ data }) => {
     console.log("Tracking ID:", trackingId);
     console.log("Agency Name:", agencyName);
     console.log("Posted Date:", postalDate);
+    console.log("Address:", postAddress);
+    
     // const date = new Date(postalDate);
     // console.log("Date:", date);
-    
-    if(trackingId === "" || agencyName === "" || postalDate === "") {
+
+    if (trackingId === "" || agencyName === "" || postalDate === "") {
       alert("Please fill all the details");
       return;
     }
+
     try {
       const response = await axios.put(`http://localhost:8080/post/update`, {
         requestId: postData.requestId,
         trackingId: trackingId,
         agencyName: agencyName,
         postTime: postalDate,
+        address: postAddress,
       });
       const data = await response.data;
       console.log("Data:", data);
@@ -333,7 +389,7 @@ const Table = ({ data }) => {
         "There was an error trying to add post details. Please try again later."
       );
     }
-  }
+  };
 
   return (
     <>
@@ -343,7 +399,6 @@ const Table = ({ data }) => {
             textDecoration: "none",
             color: "#007bff",
           }}
-          activeClassName="active-nav-link"
           className="nav-links"
           id="allRequests"
           onClick={() => {
@@ -353,7 +408,6 @@ const Table = ({ data }) => {
           <p style={{ fontSize: "17px", marginLeft: "2px" }}>All Requests</p>
         </button>
         <button
-          activeClassName="active-nav-link"
           className="nav-links"
           id="pendingRequests"
           onClick={() => {
@@ -365,7 +419,6 @@ const Table = ({ data }) => {
           </p>
         </button>
         <button
-          activeClassName="active-nav-link"
           className="nav-links"
           id="issuedRequests"
           onClick={() => {
@@ -375,7 +428,6 @@ const Table = ({ data }) => {
           <p style={{ fontSize: "17px", marginLeft: "2px" }}>Issued Requests</p>
         </button>
         <button
-          activeClassName="active-nav-link"
           className="nav-links"
           id="completedRequests"
           onClick={() => {
@@ -394,16 +446,13 @@ const Table = ({ data }) => {
               Request ID
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
-            <th>
-              Time
-              <hr style={{ margin: "5px 0 10px 0" }} />
-            </th>
+
             <th>
               Student ID
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
             <th>
-              Amount Paid
+              Charges
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
             <th>
@@ -416,6 +465,10 @@ const Table = ({ data }) => {
             </th>
             <th>
               Transaction ID
+              <hr style={{ margin: "5px 0 10px 0" }} />
+            </th>
+            <th>
+              Time
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
             <th>
@@ -442,11 +495,6 @@ const Table = ({ data }) => {
                     <div style={{ marginBottom: "10px" }} />
                   </td>
                   <td>
-                    {new Date(row.time).toLocaleDateString()}{" "}
-                    {new Date(row.time).toLocaleTimeString()}{" "}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
                     {row.studentId}
                     <div style={{ marginBottom: "10px" }} />
                   </td>
@@ -464,6 +512,11 @@ const Table = ({ data }) => {
                   </td>
                   <td>
                     {row.transactionId}
+                    <div style={{ marginBottom: "10px" }} />
+                  </td>
+                  <td>
+                    {new Date(row.time).toLocaleDateString()}{" "}
+                    {new Date(row.time).toLocaleTimeString()}{" "}
                     <div style={{ marginBottom: "10px" }} />
                   </td>
                   <td>
@@ -510,78 +563,82 @@ const Table = ({ data }) => {
             </>
           ) : (
             <>
-              {data.map((row, index) => (
-                <tr key={row.uniqueId || index}>
-                  <td>
-                    {row.requestId}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {new Date(row.time).toLocaleDateString()}{" "}
-                    {new Date(row.time).toLocaleTimeString()}{" "}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {row.studentId}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {row.amountPaid}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {row.deliveryMod}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {row.contactNo}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    {row.transactionId}
-                    <div style={{ marginBottom: "10px" }} />
-                  </td>
-                  <td>
-                    <button
-                      className="adminDocsBtn"
-                      onClick={() => {
-                        handleStatusUpdateDisplay(
-                          row.status,
-                          row.requestId,
-                          row.deliveryMod,
-                          row.studentId
-                        );
-                      }}
-                    >
-                      {row.status}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      className="adminDocsBtn"
-                      onClick={() => {
-                        handleDisplayDocs(row.requestId, row.studentId);
-                      }}
-                    >
-                      Docs
-                    </button>
-                  </td>
-                  <td>
-                    {row.deliveryMod !== "On Campus" ? (
-                      <button
-                        className="adminDocsBtn"
-                        onClick={() => {
-                          handleDisplayPost(row.requestId, row.studentId);
-                        }}
-                      >
-                        Post
-                      </button>
-                    ) : (
-                      <p> </p>
-                    )}
-                  </td>
-                </tr>
-              ))}
+              {forAllRequests ? (
+                <>
+                  {data.map((row, index) => (
+                    <tr key={row.uniqueId || index}>
+                      <td>
+                        {row.requestId}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {row.studentId}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {row.amountPaid}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {row.deliveryMod}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {row.contactNo}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {row.transactionId}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        {new Date(row.time).toLocaleDateString()}{" "}
+                        {new Date(row.time).toLocaleTimeString()}{" "}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
+                        <button
+                          className="adminDocsBtn"
+                          onClick={() => {
+                            handleStatusUpdateDisplay(
+                              row.status,
+                              row.requestId,
+                              row.deliveryMod,
+                              row.studentId
+                            );
+                          }}
+                        >
+                          {row.status}
+                        </button>
+                      </td>
+                      <td>
+                        <button
+                          className="adminDocsBtn"
+                          onClick={() => {
+                            handleDisplayDocs(row.requestId, row.studentId);
+                          }}
+                        >
+                          Docs
+                        </button>
+                      </td>
+                      <td>
+                        {row.deliveryMod !== "On Campus" ? (
+                          <button
+                            className="adminDocsBtn"
+                            onClick={() => {
+                              handleDisplayPost(row.requestId, row.studentId);
+                            }}
+                          >
+                            Post
+                          </button>
+                        ) : (
+                          <p> </p>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </>
+              ) : null}
             </>
           )}
         </tbody>
@@ -597,7 +654,7 @@ const Table = ({ data }) => {
             >
               <MdClose />
             </span>
-            {forDocument ? <h3>Document Details</h3> : null}
+            {forDocument ? <h3>Documents appilied for</h3> : null}
             {forStatus ? <h3>Update Status</h3> : null}
             {!forDocument && !forStatus ? <h3>Postal Details</h3> : null}
             StudentID: {studentId}
@@ -636,84 +693,93 @@ const Table = ({ data }) => {
                   </>
                 ) : null}
                 {!forStatus && !forDocument ? (
-                   <>
-                   <div
-                     className="postDetailsBelowStatusUpdate"
-                     id="postDetailsBelowStatusUpdate"
-                   >
-                     <hr style={{ width: "100%", marginBottom: "10px" }} />
-                     <label
-                       htmlFor="address"
-                       className="labelForPostDetailsUpdatation"
-                     >
-                       Address:{" "}
-                     </label>
-                     <input
-                       type="text"
-                       name="address"
-                       id="address"
-                       className="postDetailsInput"
-                       defaultValue={postData.address}
-                       disabled
-                     />
-                     <label
-                       htmlFor="trackingId"
-                       className="labelForPostDetailsUpdatation"
-                     >
-                       Tracking ID:{" "}
-                     </label>
-                     <input
-                       type="text"
-                       name="trackingId"
-                       id="trackingId"
-                       className="postDetailsInput"
-                       defaultValue={postData.trackingId}
-                       onChange={(e) => {
-                         setTrackingId(e.target.value);
-                       }}
-                     />
-                     <label
-                       htmlFor="agencyName"
-                       className="labelForPostDetailsUpdatation"
-                     >
-                       Agency name:{" "}
-                     </label>
-                     <input
-                       type="text"
-                       className="postDetailsInput"
-                       id="agencyName"
-                       name="agencyName"
-                       defaultValue={postData.agencyName}
-                       onChange={(e) => {
-                         setAgencyName(e.target.value);
-                       }}
-                     />
-                     <label
-                       htmlFor="postedDate"
-                       className="labelForPostDetailsUpdatation"
-                     >
-                       Date:{" "}
-                     </label>
-                     <input
-                       type="date"
-                       className="postDetailsInput"
-                       id="postedDate"
-                       name="postedDate"
+                  <>
+                    <div
+                      className="postDetailsBelowStatusUpdate"
+                      id="postDetailsBelowStatusUpdate"
+                    >
+                      <hr style={{ width: "100%", marginBottom: "10px" }} />
+                      <label
+                        htmlFor="address"
+                        className="labelForPostDetailsUpdatation"
+                      >
+                        Address:{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="address"
+                        id="address"
+                        className="postDetailsInput"
+                        defaultValue={postData.address}
+                        onChange={(e) => {setPostAddress(e.target.value);}}
+                        disabled
+                      />
+                      <button
+                        className="adminAddressEditBtn"
+                        onClick={() => {
+                          handleEnableAddressEdit();
+                        }}
+                      >
+                        Edit Address
+                      </button>
+                      <label
+                        htmlFor="trackingId"
+                        className="labelForPostDetailsUpdatation"
+                      >
+                        Tracking ID:{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="trackingId"
+                        id="trackingId"
+                        className="postDetailsInput"
+                        defaultValue={postData.trackingId}
+                        onChange={(e) => {
+                          setTrackingId(e.target.value);
+                        }}
+                      />
+                      <label
+                        htmlFor="agencyName"
+                        className="labelForPostDetailsUpdatation"
+                      >
+                        Agency name:{" "}
+                      </label>
+                      <input
+                        type="text"
+                        className="postDetailsInput"
+                        id="agencyName"
+                        name="agencyName"
+                        defaultValue={postData.agencyName}
+                        onChange={(e) => {
+                          setAgencyName(e.target.value);
+                        }}
+                      />
+                      <label
+                        htmlFor="postedDate"
+                        className="labelForPostDetailsUpdatation"
+                      >
+                        Date:{" "}
+                      </label>
+                      <input
+                        type="date"
+                        className="postDetailsInput"
+                        id="postedDate"
+                        name="postedDate"
                         defaultValue={postData.postTime}
-                       onChange={(e) => {
-                        setPostalDate(e.target.value);
-                       }}
-                     />
-                     <button
-                       className="postedSubmitBtn"
-                       onClick={() => {
-                         handlePostedSubmitBtn();
-                       }}
-                     >
-                       Add Post details
-                     </button>
-                   </div>
-                 </>
+                        onChange={(e) => {
+                          setPostalDate(e.target.value);
+                        }}
+                      />
+                      <button
+                        className="postedSubmitBtn"
+                        onClick={() => {
+                          handlePostedSubmitBtn();
+                        }}
+                      >
+                        Add Post details
+                      </button>
+                    </div>
+                  </>
                 ) : null}
                 {!forDocument && forStatus ? (
                   <>
@@ -744,7 +810,26 @@ const Table = ({ data }) => {
                             ) : (
                               <option value="Collected">Collected</option>
                             )}
+                            <option value="Rejected">Rejected</option>
                           </select>
+                          <div style={{ marginBottom: "10px" }} />
+                          {rejectedReasonVisibility ? (
+                            <div id="updateStatusInputCont">
+                              <label
+                                htmlFor="updateStatusInput"
+                                style={{ marginRight: "10px" }}
+                              >
+                                Enter reason for rejection:
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="Enter reason"
+                                className="updateStatusInput"
+                                name="updateStatusInput"
+                                id="updateStatusInput"
+                              />
+                            </div>
+                          ) : null}
                           <button
                             style={{
                               marginTop: "10px",

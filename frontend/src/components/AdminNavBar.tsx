@@ -13,7 +13,18 @@ const AdminNavBar = () => {
     <div className="studentNavBar">
       <div className="studentNavBarContainer">
         <div className="studentNavBarTitle">
-          <h3 style={{ color: "#007bff" }}>Student Document Service</h3>
+          <Link
+            to="/admin/dashboard"
+            style={{
+              textDecoration: "none",
+              color: "#007bff",
+              display: "flex",
+              alignItems: "center",
+              marginRight: "15px",
+            }}
+          >
+            <h3 style={{ color: "#007bff" }}>Student Document Service</h3>
+          </Link>
         </div>
         <div className="studentNavBarLinks">
           <>
