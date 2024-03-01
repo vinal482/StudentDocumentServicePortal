@@ -2,6 +2,7 @@ import React from "react";
 import { MdOutlineLogout } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import Logo from "../Assets/DA_logo.png";
 
 const StudentNavBar = () => {
   const logoutHandler = async () => {
@@ -14,8 +15,8 @@ const StudentNavBar = () => {
     <div className="studentNavBar">
       <div className="studentNavBarContainer">
         <div className="studentNavBarTitle">
-          <Link style={{textDecoration: 'none'}} to="/student/DSD">
-            <h3 style={{ color: "#007bff" }}>Student Document Service</h3>
+          <Link style={{ textDecoration: "none" }} to="/student/DSD">
+            <img src={Logo} alt="" style={{ height: "40px" }} />
           </Link>
         </div>
         <div className="studentNavBarLinks">
@@ -36,7 +37,7 @@ const StudentNavBar = () => {
           </>
           <>
             <button
-            onClick={logoutHandler}
+              onClick={logoutHandler}
               style={{
                 textDecoration: "none",
                 color: "red",

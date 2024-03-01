@@ -134,7 +134,7 @@ const Table = ({ data }) => {
     console.log("Request ID:", requestId);
     console.log("Delivery Mode:", deliveryMode);
     console.log("Student ID:", studentId);
-    if (Status === "Rejected") {
+    if (Status === "Rejected" || Status === "Pending") {
       setRejectedReasonVisibility(true);
     } else {
       setRejectedReasonVisibility(false);
@@ -177,7 +177,7 @@ const Table = ({ data }) => {
 
   const handleSelectChange = async (e) => {
     console.log("Selected:", e.target.value);
-    if (e.target.value === "Rejected") {
+    if (e.target.value === "Rejected" || e.target.value === "Pending") {
       await setRejectedReasonVisibility(true);
     } else {
       await setRejectedReasonVisibility(false);
@@ -362,7 +362,7 @@ const Table = ({ data }) => {
     console.log("Agency Name:", agencyName);
     console.log("Posted Date:", postalDate);
     console.log("Address:", postAddress);
-    
+
     // const date = new Date(postalDate);
     // console.log("Date:", date);
 
@@ -446,7 +446,10 @@ const Table = ({ data }) => {
               Request ID
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
-
+            <th>
+              Requested time
+              <hr style={{ margin: "5px 0 10px 0" }} />
+            </th>
             <th>
               Student ID
               <hr style={{ margin: "5px 0 10px 0" }} />
@@ -468,7 +471,7 @@ const Table = ({ data }) => {
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
             <th>
-              Time
+              Transaction time
               <hr style={{ margin: "5px 0 10px 0" }} />
             </th>
             <th>
@@ -495,6 +498,10 @@ const Table = ({ data }) => {
                     <div style={{ marginBottom: "10px" }} />
                   </td>
                   <td>
+                    {new Date(row.time).toLocaleDateString()}{" "}
+                    <div style={{ marginBottom: "10px" }} />
+                  </td>
+                  <td>
                     {row.studentId}
                     <div style={{ marginBottom: "10px" }} />
                   </td>
@@ -515,8 +522,7 @@ const Table = ({ data }) => {
                     <div style={{ marginBottom: "10px" }} />
                   </td>
                   <td>
-                    {new Date(row.time).toLocaleDateString()}{" "}
-                    {new Date(row.time).toLocaleTimeString()}{" "}
+                    {row.transactionId}
                     <div style={{ marginBottom: "10px" }} />
                   </td>
                   <td>
@@ -572,6 +578,10 @@ const Table = ({ data }) => {
                         <div style={{ marginBottom: "10px" }} />
                       </td>
                       <td>
+                        {new Date(row.time).toLocaleDateString()}{" "}
+                        <div style={{ marginBottom: "10px" }} />
+                      </td>
+                      <td>
                         {row.studentId}
                         <div style={{ marginBottom: "10px" }} />
                       </td>
@@ -592,8 +602,7 @@ const Table = ({ data }) => {
                         <div style={{ marginBottom: "10px" }} />
                       </td>
                       <td>
-                        {new Date(row.time).toLocaleDateString()}{" "}
-                        {new Date(row.time).toLocaleTimeString()}{" "}
+                        {row.transactionId}
                         <div style={{ marginBottom: "10px" }} />
                       </td>
                       <td>
@@ -711,7 +720,9 @@ const Table = ({ data }) => {
                         id="address"
                         className="postDetailsInput"
                         defaultValue={postData.address}
-                        onChange={(e) => {setPostAddress(e.target.value);}}
+                        onChange={(e) => {
+                          setPostAddress(e.target.value);
+                        }}
                         disabled
                       />
                       <button
@@ -819,7 +830,7 @@ const Table = ({ data }) => {
                                 htmlFor="updateStatusInput"
                                 style={{ marginRight: "10px" }}
                               >
-                                Enter reason for rejection:
+                                Enter remarks for rejection:
                               </label>
                               <input
                                 type="text"

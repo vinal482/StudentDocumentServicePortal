@@ -2,6 +2,7 @@ import React from "react";
 import { MdOutlineLogout } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import Logo from "../Assets/DA_logo.png";
 
 const AdminNavBar = () => {
   const logoutHandler = () => {
@@ -23,7 +24,8 @@ const AdminNavBar = () => {
               marginRight: "15px",
             }}
           >
-            <h3 style={{ color: "#007bff" }}>Student Document Service</h3>
+          <img src={Logo} alt="" style={{height: "40px"}}/>
+            {/* <h3 style={{ color: "#007bff" }}>Student Document Service</h3> */}
           </Link>
         </div>
         <div className="studentNavBarLinks">

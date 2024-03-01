@@ -164,7 +164,7 @@ const StudentStatus = () => {
                         />
                       </th>
                       <th>
-                        Time
+                        Requested Date
                         <hr
                           style={{ marginBottom: "10px", marginTop: "5px" }}
                         />
@@ -215,7 +215,6 @@ const StudentStatus = () => {
                           </td>
                           <td>
                             {new Date(req.time).toLocaleDateString()}{" "}
-                            {new Date(req.time).toLocaleTimeString()}{" "}
                             <div style={{ marginBottom: "10px" }} />
                           </td>
                           <td>
@@ -392,6 +391,9 @@ const StudentStatus = () => {
                       />
                       <p>
                         <b>Transaction ID:</b> {transactionId}
+                      </p>
+                      <p>
+                        <b>Time:</b> 
                       </p>
                       <p>
                         <b>Charges:</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
