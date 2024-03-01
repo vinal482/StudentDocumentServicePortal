@@ -69,7 +69,7 @@ const AdminDashboard = () => {
     <>
       <AdminNavBar />
       <div className="searchBarContainer">
-      <form action={Search} className="searchInputForm">
+      <form className="searchInputForm">
         <input
           className="searchInput"
           type="text"

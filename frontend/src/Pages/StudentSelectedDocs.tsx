@@ -43,11 +43,10 @@ const StudentSelectedDocs = () => {
                 Back
               </button>
             </Link>
-            <Link>
-              <button type="submit" className="studentSelectedDocsPayBtn">
+              <button type="button" className="studentSelectedDocsPayBtn" onClick={() => {handlePay()}}
+              >
                 Pay
               </button>
-            </Link>
           </div>
         </div>
       </div>

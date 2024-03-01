@@ -19,6 +19,7 @@ const StudentDSD = () => {
   const [nextPressed, setNextPressed] = React.useState<boolean>(false);
   const [totalCost, setTotalCost] = React.useState<number>(0);
   const [modeOfDelivery, setModeOfDelivery] = React.useState<string>("");
+  const [deliveryCharges, setDeliveryCharges] = React.useState<number>(0);
   const [contactNo, setContactNo] = React.useState<string>("");
   const [address, setAddress] = React.useState<string>("");
   var totalAmountPaid = 0;
@@ -167,6 +168,13 @@ const StudentDSD = () => {
     totalAmountPaid += cost;
     setTotalCost(totalAmountPaid);
     await setModeOfDelivery(value);
+    if(value === "On Campus"){
+      setDeliveryCharges(0);
+    } else if(value === "Inside India"){
+      setDeliveryCharges(130);
+    } else if(value === "Outside India"){
+      setDeliveryCharges(2500);
+    }
     console.log("Mode of delivery:", value);
   };
 
@@ -341,7 +349,7 @@ const StudentDSD = () => {
                   </table>
                 </div>
                 <div className="selectedDocumentTotalCost">
-                  Total Cost: {totalCost} INR
+                  (Including {modeOfDelivery}({deliveryCharges}))Total Cost: {totalCost} INR
                 </div>
               </div>
               <div className="studentDocumentSubmit">
