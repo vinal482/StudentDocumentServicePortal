@@ -31,7 +31,7 @@ const StudentStatus = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:8080/request/getByStudentId?studentId=${studentId}`,
+        `http://10.100.56.153:8080/request/getByStudentId?studentId=${studentId}`,
         {
           method: "GET",
           headers: {
@@ -62,13 +62,13 @@ const StudentStatus = () => {
     setForPayment(false);
     try {
       const documentResponse = await axios.get(
-        `http://localhost:8080/requestedDocuments/get?requestId=${requestId}`
+        `http://10.100.56.153:8080/requestedDocuments/get?requestId=${requestId}`
       );
       const documentData = await documentResponse.data;
 
       for (let i = 0; i < documentData.length; i++) {
         const response = await axios.get(
-          `http://localhost:8080/document/get?documentId=${documentData[i].documentId}`
+          `http://10.100.56.153:8080/document/get?documentId=${documentData[i].documentId}`
         );
         const data = await response.data;
         documentData[i].documentName = data.documentName;
@@ -94,7 +94,7 @@ const StudentStatus = () => {
     setForPayment(false);
     try {
       const response = await axios.get(
-        `http://localhost:8080/post/get?requestId=${requestId}`
+        `http://10.100.56.153:8080/post/get?requestId=${requestId}`
       );
 
       const data = await response.data;

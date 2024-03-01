@@ -25,7 +25,7 @@ const AdminLoginPage = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:8080/admin/login", {
+      const response = await axios.post("http://:8080/admin/login", {
         emailId: email,
         adminName: adminName,
         password: password,
