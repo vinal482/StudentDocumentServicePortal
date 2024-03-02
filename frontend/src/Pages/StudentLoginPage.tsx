@@ -8,7 +8,7 @@ const StudentLoginPage = () => {
   useEffect(() => {
     const studentId = localStorage.getItem("studentId");
     if (studentId) {
-      window.location.href = "/student/dsd";
+      window.location.href = "./student/dsd";
     }
   }, []);
 
@@ -26,7 +26,7 @@ const StudentLoginPage = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://10.100.56.153:8080/login", {
+      const response = await axios.post("http://localhost:8080/login", {
         studentId: studentId, // Send as number
         emailId: email, // Send as string
         name: name, // Send as string
