@@ -56,14 +56,14 @@ const Table = ({ data }) => {
     await setStudentId(studentId);
     try {
       const documentResponse = await axios.get(
-        `http://10.100.56.153:8080/requestedDocuments/get?requestId=${requestId}`
+        `http://localhost:8080/requestedDocuments/get?requestId=${requestId}`
       );
 
       const documentData = await documentResponse.data;
 
       for (let i = 0; i < documentData.length; i++) {
         const response = await axios.get(
-          `http://10.100.56.153:8080/document/get?documentId=${documentData[i].documentId}`
+          `http://localhost:8080/document/get?documentId=${documentData[i].documentId}`
         );
         const data = await response.data;
         documentData[i].documentName = data.documentName;
@@ -103,7 +103,7 @@ const Table = ({ data }) => {
     setForStatus(false);
     try {
       const response = await axios.get(
-        `http://10.100.56.153:8080/post/get?requestId=${requestId}`
+        `http://localhost:8080/post/get?requestId=${requestId}`
       );
 
       const data = await response.data;
@@ -150,7 +150,7 @@ const Table = ({ data }) => {
     document.getElementById("statusSel").value = Status;
     try {
       const response = await axios.get(
-        `http://10.100.56.153:8080/requestUpdate/get?requestId=${requestId}`
+        `http://localhost:8080/requestUpdate/get?requestId=${requestId}`
       );
 
       const requestUpdateLogData = await response.data;
@@ -194,7 +194,7 @@ const Table = ({ data }) => {
         return;
       }
       const response = await axios.put(
-        `http://10.100.56.153:8080/request/status/update`,
+        `http://localhost:8080/request/status/update`,
         {
           requestId: statusRequestId,
           status: selectedStatus,
@@ -204,7 +204,7 @@ const Table = ({ data }) => {
       console.log("Data:", data);
       alert("Status updated successfully");
       const response1 = await axios.post(
-        `http://10.100.56.153:8080/requestUpdate/add`,
+        `http://localhost:8080/requestUpdate/add`,
         {
           requestId: statusRequestId,
           oldStatus: status,
@@ -235,7 +235,7 @@ const Table = ({ data }) => {
       try {
         setIsLoading(true);
         const response1 = await axios.get(
-          `http://10.100.56.153:8080/request/getAll`,
+          `http://localhost:8080/request/getAll`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -258,7 +258,7 @@ const Table = ({ data }) => {
       try {
         setIsLoading(true);
         const response1 = await axios.get(
-          `http://10.100.56.153:8080/request/getbystatus?status=Pending`,
+          `http://localhost:8080/request/getbystatus?status=Pending`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -281,7 +281,7 @@ const Table = ({ data }) => {
       try {
         setIsLoading(true);
         const response1 = await axios.get(
-          `http://10.100.56.153:8080/request/getbystatus?status=Issued`,
+          `http://localhost:8080/request/getbystatus?status=Issued`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -304,7 +304,7 @@ const Table = ({ data }) => {
       try {
         setIsLoading(true);
         const response1 = await axios.get(
-          `http://10.100.56.153:8080/request/getbystatus?status=Posted`,
+          `http://localhost:8080/request/getbystatus?status=Posted`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -312,7 +312,7 @@ const Table = ({ data }) => {
           }
         );
         const reponse2 = await axios.get(
-          `http://10.100.56.153:8080/request/getbystatus?status=Collected`,
+          `http://localhost:8080/request/getbystatus?status=Collected`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -372,7 +372,7 @@ const Table = ({ data }) => {
     }
 
     try {
-      const response = await axios.put(`http://10.100.56.153:8080/post/update`, {
+      const response = await axios.put(`http://localhost:8080/post/update`, {
         requestId: postData.requestId,
         trackingId: trackingId,
         agencyName: agencyName,

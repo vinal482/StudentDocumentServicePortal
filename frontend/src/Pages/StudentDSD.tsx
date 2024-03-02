@@ -78,7 +78,7 @@ const StudentDSD = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        "http://10.100.56.153:8080/document/getall",
+        "http://localhost:8080/document/getall",
         {
           headers: {
             "Content-Type": "application/json",
@@ -198,7 +198,7 @@ const StudentDSD = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post("http://10.100.56.153:8080/request/add", {
+      const response = await axios.post("http://localhost:8080/request/add", {
         studentId: studentId,
         deliveryMod: modeOfDelivery,
         contactNo: contactNo,
@@ -206,7 +206,7 @@ const StudentDSD = () => {
       });
       for(let i = 0; i < selectedItems.length; i++){
         const response1 = await axios.post(
-          "http://10.100.56.153:8080/requestedDocuments/add",
+          "http://localhost:8080/requestedDocuments/add",
           {
             requestId: response.data.requestId,
             documentId: selectedItems[i].documentId,
@@ -217,7 +217,7 @@ const StudentDSD = () => {
       if(modeOfDelivery === "On Campus"){
         alert("Request placed successfully. You can collect the documents from the college office.");
       } else {
-        const response2 = await axios.post("http://10.100.56.153:8080/post/add", {
+        const response2 = await axios.post("http://localhost:8080/post/add", {
           requestId: response.data.requestId,
           address: address,
         });

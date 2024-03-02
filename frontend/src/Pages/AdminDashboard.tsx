@@ -28,7 +28,7 @@ const AdminDashboard = () => {
       setAdminName(adminName);
 
       const response1 = await axios.get(
-        `http://10.100.56.153:8080/request/getAll`,
+        `http://localhost:8080/request/getAll`,
         {
           headers: {
             "Content-Type": "application/json",
