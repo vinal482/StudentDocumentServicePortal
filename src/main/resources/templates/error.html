@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Payment Status</title>
+    <script>
+        let x;
+    </script>
+    <style>
+        #table {
+            visibility: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="table">
+        <h2>Please take Screenshot if there is any issue with payment.</h2>
+    <!--    <h3>Sorry, there was an error occurred!</h3>-->
+        <div>
+            <h4>Request Body:</h4>
+            <table>
+                <tbody>
+                    <tr th:each="entry : ${fields}">
+                        <td th:text="${entry.key}"></td>
+                        <td th:text="${entry.value}"></td>
+    <!--                    <script th:if="${entry.key} == 'ReferenceNo'" th:inline="javascript">-->
+    <!--                        -->
+    <!--                    </script>-->
+                        <script th:if="${entry.key} == 'Response+Code'" th:inline="javascript">
+                            x = [[${entry.value}]];
+                            switch ([[${entry.value}]]) {
+                                case "E000":
+                                    alert("Payment Received Successfully");
+                                    window.location.href = "https://documents.daiict.ac.in/student/status"
+                                    break;
+                                case "E006":
+                                    alert("Payment Received Successfully");
+                                    window.location.href = "https://documents.daiict.ac.in/student/status"
+                                    break;
+                                case "E008":
+                                    alert("Payment Received Successfully");
+                                    window.location.href = "https://documents.daiict.ac.in/student/status"
+                                    break;
+                                default:
+                                    alert("Error while paying");
+                                    document.getElementById("table").style.visibility = "visible";
+                                    break;
+                            }
+                        </script>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <a href="https://documents.daiict.ac.in">
+            <button type="button">
+                Go to home page
+            </button>
+        </a>
+    </div>
+</body>
+
+</html>
